@@ -25,8 +25,8 @@ phases:
       - npm install nodejs
       - npm i -g aws-cdk
       - cdk --version
-      - cdk bootstrap
       - cdk synth --all
+      - cdk bootstrap
       - $(aws ecr get-login --region __ECR_REGION__ --no-include-email)
       #- REPOSITORY_URI=__ACCOUNT_NUMBER__.dkr.ecr.__ECR_REGION__.amazonaws.com/__ECR_REPOSITORY_NAME__
       #- COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
