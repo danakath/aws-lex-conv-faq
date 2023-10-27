@@ -1,7 +1,4 @@
-FROM  public.ecr.aws/lambda/python:3.11-x86_64
-RUN yum -y install gcc gcc-c++
-RUN pip3 install --upgrade pip
-RUN pip3 install matplotlib
+FROM  public.ecr.aws/lambda/python:3.11
 RUN pip install --upgrade pip
 COPY web_crawler_requirements.txt  .
 RUN  pip3 install -r web_crawler_requirements.txt --target "${LAMBDA_TASK_ROOT}"

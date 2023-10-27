@@ -49,20 +49,23 @@ class LexGenAIDemoFilesStack(Stack):
                                  versioned=True)
 
         # create lambda image for on demand index creation
-        read_source_and_build_index_function = lambda_.DockerImageFunction(self, "read-source-and-build-index-function-CFN", function_name="read-source-and-build-index-fn",
-            code=lambda_.DockerImageCode.from_image_asset("index-creation-docker-image"),
-            role=lambda_cfn_role,
-            memory_size=10240,
-            timeout=Duration.minutes(5)
+        read_source_and_build_index_function = lambda_.DockerImageFunction(self, "read-source-and-build-index-function-CFN", 
+                                               function_name="read-source-and-build-index-fn",
+                                               code=lambda_.DockerImageCode.from_image_asset("index-creation-docker-image"),
+                                               role=lambda_cfn_role,
+                                               memory_size=10240,
+                                               timeout=Duration.minutes(5)
         )
-        source_bucket.add_event_notification(s3.EventType.OBJECT_CREATED, s3n.LambdaDestination(read_source_and_build_index_function))
+        source_bucket.add_event_notification(s3.EventType.OBJECT_CREATED, 
+                                             s3n.LambdaDestination(read_source_and_build_index_function))
 
         # create image of lex-gen-ai-demo-docker-image, push to ECR and into a lambda function
-        runtime_function = lambda_.DockerImageFunction(self, "CFN-runtime-fn", function_name="lex-codehook-fn",
-            code=lambda_.DockerImageCode.from_image_asset("lex-gen-ai-demo-docker-image"),
-            role=lambda_cfn_role,
-            memory_size=10240,
-            timeout=Duration.minutes(5)
+        runtime_function = lambda_.DockerImageFunction(self, "CFN-runtime-fn", 
+                                                function_name="lex-codehook-fn",
+                                                code=lambda_.DockerImageCode.from_image_asset("lex-gen-ai-demo-docker-image"),
+                                                role=lambda_cfn_role,
+                                                memory_size=10240,
+                                                timeout=Duration.minutes(5)
         )
         runtime_function.grant_invoke(iam.ServicePrincipal("lexv2.amazonaws.com"))
 
