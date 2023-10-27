@@ -22,5 +22,6 @@ blogs/rag/blog_post.docx
 blogs/rag/blog_post1.htm
 blogs/rag/blog_post1_files/
 blogs/rag/~$og_post1.htm
-src/cdk.out/
+src/cdk.out/*
+.env/*
 
