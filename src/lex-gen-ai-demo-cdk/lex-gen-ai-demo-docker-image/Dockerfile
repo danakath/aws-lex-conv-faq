@@ -1,4 +1,4 @@
-FROM  public.ecr.aws/lambda/python:3.11-x86_64
+FROM  public.ecr.aws/lambda/python:3.11
 
 COPY runtime_lambda_requirements.txt  .
 RUN  pip3 install -r runtime_lambda_requirements.txt --target "${LAMBDA_TASK_ROOT}"

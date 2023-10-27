@@ -27,9 +27,7 @@ phases:
       - cdk --version
       - cdk synth --all
       - cdk bootstrap
-      - $(aws ecr get-login-password --region $ECR_REGION  | docker login \
-               --username AWS \
-               --password-stdin $ACCOUNT_NUMBER.dkr.ecr.<region>.amazonaws.com)
+      - aws ecr get-login-password --region $ECR_REGION  | docker login --username AWS --password-stdin $ACCOUNT_NUMBER.dkr.ecr.$ECR_REGION.amazonaws.com
       #- REPOSITORY_URI=__ACCOUNT_NUMBER__.dkr.ecr.__ECR_REGION__.amazonaws.com/__ECR_REPOSITORY_NAME__
       #- COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       #- IMAGE_TAG=${COMMIT_HASH:=latest}
