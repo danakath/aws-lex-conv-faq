@@ -1,60 +1,42 @@
+# Change the following to your desired values:
+#   __ACCOUNT_NUMBER__
+#   __ECR_REGION__
+#   __ECR_REPOSITORY_NAME__
+#   __ECS_CONTAINER_NAME__
+
 version: 0.2
-#env:
-  #variables:
-     # key: "value"
-     # key: "value"
-  #parameter-store:
-     # key: "value"
-     # key: "value"
-  #secrets-manager:
-     # key: secret-id:json-key:version-stage:version-id
-     # key: secret-id:json-key:version-stage:version-id
-  #exported-variables:
-     # - variable
-     # - variable
-  #git-credential-helper: yes
-#batch:
-  #fast-fail: true
-  #build-list:
-  #build-matrix:
-  #build-graph:
+env:
+  variables:
+     __ECR_REGION__: "us-east-1"
+     __ACCOUNT_NUMBER_: "603836437137"
+     __ECR_REPOSITORY_NAME__ : "value"
 phases:
   install:
-    #runtime-versions:
-      # name: version
-      # name: version
+    runtime-versions:
+      docker: 18
+  pre_build:
     commands:
-      - cd src/lex-gen-ai-demo-cdk-files
-      - pip install -r requirements.txt
-  #pre_build:
-    #commands:
-      # - command
-      # - command
+      - echo Logging in to Amazon ECR...
+      - aws --version
+      - $(pwd)
+      - $(ls -la)
+      - $(aws ecr get-login --region __ECR_REGION__ --no-include-email)
+      #- REPOSITORY_URI=__ACCOUNT_NUMBER__.dkr.ecr.__ECR_REGION__.amazonaws.com/__ECR_REPOSITORY_NAME__
+      #- COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
+      #- IMAGE_TAG=${COMMIT_HASH:=latest}
   build:
     commands:
-      - cdk synth
-      - cdk bootstrap
-      # - command
-      # - command
-  #post_build:
-    #commands:
-      # - command
-      # - command
-#reports:
-  #report-name-or-arn:
-    #files:
-      # - location
-      # - location
-    #base-directory: location
-    #discard-paths: yes
-    #file-format: JunitXml | CucumberJson
+      - echo Build started on `date`
+      - echo Building the Docker image...          
+      #- docker build -t $REPOSITORY_URI:latest .
+      #- docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Pushing the Docker images...
+      #- docker push $REPOSITORY_URI:latest
+      #- docker push $REPOSITORY_URI:$IMAGE_TAG
+      - echo Writing image definitions file...
+      #- printf '[{"name”:"__ECS_CONTAINER_NAME__","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
 #artifacts:
-  #files:
-    # - location
-    # - location
-  #name: $(date +%Y-%m-%d)
-  #discard-paths: yes
-  #base-directory: location
-#cache:
-  #paths:
-    # - paths
+  #files: imagedefinitions.json
