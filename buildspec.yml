@@ -18,8 +18,15 @@ phases:
     commands:
       - echo Logging in to Amazon ECR...
       - aws --version
-      - $(pwd)
-      - $(ls -la)
+      - pwd
+      - ls -la
+      - cd ./src/lex-gen-ai-demo-cdk
+      - pip install -r requirements.txt -U
+      - yum install nodejs14
+      - npm i -g aws-cdk
+      - cdk --version
+      - cdk bootstrap
+      - cdk synth --all
       - $(aws ecr get-login --region __ECR_REGION__ --no-include-email)
       #- REPOSITORY_URI=__ACCOUNT_NUMBER__.dkr.ecr.__ECR_REGION__.amazonaws.com/__ECR_REPOSITORY_NAME__
       #- COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
@@ -27,7 +34,8 @@ phases:
   build:
     commands:
       - echo Build started on `date`
-      - echo Building the Docker image...          
+      - echo Building the Docker image...       
+      - cdk deploy --all   
       #- docker build -t $REPOSITORY_URI:latest .
       #- docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
   post_build:
