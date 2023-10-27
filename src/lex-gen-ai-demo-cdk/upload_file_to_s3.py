@@ -4,7 +4,7 @@ from botocore.exceptions import ClientError
 import logging
 
 ACCOUNT_ID = boto3.client('sts').get_caller_identity().get('Account')
-S3_BUCKET = "lexgenaistack-source-materials-bucket-"+ACCOUNT_ID
+S3_BUCKET = "lexgenaistack-source-materials-bucket-"+src(ACCOUNT_ID)
 s3_client = boto3.client("s3")
 
 def main():

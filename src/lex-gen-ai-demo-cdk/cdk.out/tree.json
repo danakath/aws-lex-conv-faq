@@ -1,0 +1,1046 @@
+{
+  "version": "tree-0.1",
+  "tree": {
+    "id": "App",
+    "path": "",
+    "children": {
+      "LexGenAIDemoFilesStack": {
+        "id": "LexGenAIDemoFilesStack",
+        "path": "LexGenAIDemoFilesStack",
+        "children": {
+          "CfnLexGenAIDemoRole": {
+            "id": "CfnLexGenAIDemoRole",
+            "path": "LexGenAIDemoFilesStack/CfnLexGenAIDemoRole",
+            "children": {
+              "ImportCfnLexGenAIDemoRole": {
+                "id": "ImportCfnLexGenAIDemoRole",
+                "path": "LexGenAIDemoFilesStack/CfnLexGenAIDemoRole/ImportCfnLexGenAIDemoRole",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.Resource",
+                  "version": "2.103.0"
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "LexGenAIDemoFilesStack/CfnLexGenAIDemoRole/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                  "aws:cdk:cloudformation:props": {
+                    "assumeRolePolicyDocument": {
+                      "Statement": [
+                        {
+                          "Action": "sts:AssumeRole",
+                          "Effect": "Allow",
+                          "Principal": {
+                            "Service": "lexv2.amazonaws.com"
+                          }
+                        }
+                      ],
+                      "Version": "2012-10-17"
+                    },
+                    "managedPolicyArns": [
+                      {
+                        "Fn::Join": [
+                          "",
+                          [
+                            "arn:",
+                            {
+                              "Ref": "AWS::Partition"
+                            },
+                            ":iam::aws:policy/AWSLambdaExecute"
+                          ]
+                        ]
+                      }
+                    ]
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                  "version": "2.103.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_iam.Role",
+              "version": "2.103.0"
+            }
+          },
+          "CfnLambdaGenAIDemoRole": {
+            "id": "CfnLambdaGenAIDemoRole",
+            "path": "LexGenAIDemoFilesStack/CfnLambdaGenAIDemoRole",
+            "children": {
+              "ImportCfnLambdaGenAIDemoRole": {
+                "id": "ImportCfnLambdaGenAIDemoRole",
+                "path": "LexGenAIDemoFilesStack/CfnLambdaGenAIDemoRole/ImportCfnLambdaGenAIDemoRole",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.Resource",
+                  "version": "2.103.0"
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "LexGenAIDemoFilesStack/CfnLambdaGenAIDemoRole/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                  "aws:cdk:cloudformation:props": {
+                    "assumeRolePolicyDocument": {
+                      "Statement": [
+                        {
+                          "Action": "sts:AssumeRole",
+                          "Effect": "Allow",
+                          "Principal": {
+                            "Service": "lambda.amazonaws.com"
+                          }
+                        }
+                      ],
+                      "Version": "2012-10-17"
+                    },
+                    "managedPolicyArns": [
+                      {
+                        "Fn::Join": [
+                          "",
+                          [
+                            "arn:",
+                            {
+                              "Ref": "AWS::Partition"
+                            },
+                            ":iam::aws:policy/AmazonSageMakerFullAccess"
+                          ]
+                        ]
+                      },
+                      {
+                        "Fn::Join": [
+                          "",
+                          [
+                            "arn:",
+                            {
+                              "Ref": "AWS::Partition"
+                            },
+                            ":iam::aws:policy/AmazonS3FullAccess"
+                          ]
+                        ]
+                      }
+                    ]
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                  "version": "2.103.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_iam.Role",
+              "version": "2.103.0"
+            }
+          },
+          "SourceMatBucketID-CFN": {
+            "id": "SourceMatBucketID-CFN",
+            "path": "LexGenAIDemoFilesStack/SourceMatBucketID-CFN",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "LexGenAIDemoFilesStack/SourceMatBucketID-CFN/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::S3::Bucket",
+                  "aws:cdk:cloudformation:props": {
+                    "bucketEncryption": {
+                      "serverSideEncryptionConfiguration": [
+                        {
+                          "serverSideEncryptionByDefault": {
+                            "sseAlgorithm": "AES256"
+                          }
+                        }
+                      ]
+                    },
+                    "bucketName": {
+                      "Fn::Join": [
+                        "",
+                        [
+                          "lexgenaistack-source-materials-bucket-",
+                          {
+                            "Ref": "AWS::AccountId"
+                          }
+                        ]
+                      ]
+                    },
+                    "publicAccessBlockConfiguration": {
+                      "blockPublicAcls": true,
+                      "blockPublicPolicy": true,
+                      "ignorePublicAcls": true,
+                      "restrictPublicBuckets": true
+                    },
+                    "versioningConfiguration": {
+                      "status": "Enabled"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_s3.CfnBucket",
+                  "version": "2.103.0"
+                }
+              },
+              "Policy": {
+                "id": "Policy",
+                "path": "LexGenAIDemoFilesStack/SourceMatBucketID-CFN/Policy",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "LexGenAIDemoFilesStack/SourceMatBucketID-CFN/Policy/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::S3::BucketPolicy",
+                      "aws:cdk:cloudformation:props": {
+                        "bucket": {
+                          "Ref": "SourceMatBucketIDCFNDD0E86F6"
+                        },
+                        "policyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "s3:*",
+                              "Condition": {
+                                "Bool": {
+                                  "aws:SecureTransport": "false"
+                                }
+                              },
+                              "Effect": "Deny",
+                              "Principal": {
+                                "AWS": "*"
+                              },
+                              "Resource": [
+                                {
+                                  "Fn::GetAtt": [
+                                    "SourceMatBucketIDCFNDD0E86F6",
+                                    "Arn"
+                                  ]
+                                },
+                                {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      {
+                                        "Fn::GetAtt": [
+                                          "SourceMatBucketIDCFNDD0E86F6",
+                                          "Arn"
+                                        ]
+                                      },
+                                      "/*"
+                                    ]
+                                  ]
+                                }
+                              ]
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_s3.CfnBucketPolicy",
+                      "version": "2.103.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_s3.BucketPolicy",
+                  "version": "2.103.0"
+                }
+              },
+              "Notifications": {
+                "id": "Notifications",
+                "path": "LexGenAIDemoFilesStack/SourceMatBucketID-CFN/Notifications",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "LexGenAIDemoFilesStack/SourceMatBucketID-CFN/Notifications/Resource",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.CfnResource",
+                      "version": "2.103.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "constructs.Construct",
+                  "version": "10.3.0"
+                }
+              },
+              "AllowBucketNotificationsToLexGenAIDemoFilesStackreadsourceandbuildindexfunctionCFNCA6264E7": {
+                "id": "AllowBucketNotificationsToLexGenAIDemoFilesStackreadsourceandbuildindexfunctionCFNCA6264E7",
+                "path": "LexGenAIDemoFilesStack/SourceMatBucketID-CFN/AllowBucketNotificationsToLexGenAIDemoFilesStackreadsourceandbuildindexfunctionCFNCA6264E7",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
+                  "aws:cdk:cloudformation:props": {
+                    "action": "lambda:InvokeFunction",
+                    "functionName": {
+                      "Fn::GetAtt": [
+                        "readsourceandbuildindexfunctionCFN70BC15A3",
+                        "Arn"
+                      ]
+                    },
+                    "principal": "s3.amazonaws.com",
+                    "sourceAccount": {
+                      "Ref": "AWS::AccountId"
+                    },
+                    "sourceArn": {
+                      "Fn::GetAtt": [
+                        "SourceMatBucketIDCFNDD0E86F6",
+                        "Arn"
+                      ]
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_lambda.CfnPermission",
+                  "version": "2.103.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_s3.Bucket",
+              "version": "2.103.0"
+            }
+          },
+          "IndexBucket-CFN": {
+            "id": "IndexBucket-CFN",
+            "path": "LexGenAIDemoFilesStack/IndexBucket-CFN",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "LexGenAIDemoFilesStack/IndexBucket-CFN/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::S3::Bucket",
+                  "aws:cdk:cloudformation:props": {
+                    "bucketEncryption": {
+                      "serverSideEncryptionConfiguration": [
+                        {
+                          "serverSideEncryptionByDefault": {
+                            "sseAlgorithm": "AES256"
+                          }
+                        }
+                      ]
+                    },
+                    "bucketName": {
+                      "Fn::Join": [
+                        "",
+                        [
+                          "lexgenaistack-created-index-bucket-",
+                          {
+                            "Ref": "AWS::AccountId"
+                          }
+                        ]
+                      ]
+                    },
+                    "publicAccessBlockConfiguration": {
+                      "blockPublicAcls": true,
+                      "blockPublicPolicy": true,
+                      "ignorePublicAcls": true,
+                      "restrictPublicBuckets": true
+                    },
+                    "versioningConfiguration": {
+                      "status": "Enabled"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_s3.CfnBucket",
+                  "version": "2.103.0"
+                }
+              },
+              "Policy": {
+                "id": "Policy",
+                "path": "LexGenAIDemoFilesStack/IndexBucket-CFN/Policy",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "LexGenAIDemoFilesStack/IndexBucket-CFN/Policy/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::S3::BucketPolicy",
+                      "aws:cdk:cloudformation:props": {
+                        "bucket": {
+                          "Ref": "IndexBucketCFND5625BE5"
+                        },
+                        "policyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "s3:*",
+                              "Condition": {
+                                "Bool": {
+                                  "aws:SecureTransport": "false"
+                                }
+                              },
+                              "Effect": "Deny",
+                              "Principal": {
+                                "AWS": "*"
+                              },
+                              "Resource": [
+                                {
+                                  "Fn::GetAtt": [
+                                    "IndexBucketCFND5625BE5",
+                                    "Arn"
+                                  ]
+                                },
+                                {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      {
+                                        "Fn::GetAtt": [
+                                          "IndexBucketCFND5625BE5",
+                                          "Arn"
+                                        ]
+                                      },
+                                      "/*"
+                                    ]
+                                  ]
+                                }
+                              ]
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_s3.CfnBucketPolicy",
+                      "version": "2.103.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_s3.BucketPolicy",
+                  "version": "2.103.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_s3.Bucket",
+              "version": "2.103.0"
+            }
+          },
+          "read-source-and-build-index-function-CFN": {
+            "id": "read-source-and-build-index-function-CFN",
+            "path": "LexGenAIDemoFilesStack/read-source-and-build-index-function-CFN",
+            "children": {
+              "AssetImage": {
+                "id": "AssetImage",
+                "path": "LexGenAIDemoFilesStack/read-source-and-build-index-function-CFN/AssetImage",
+                "children": {
+                  "Staging": {
+                    "id": "Staging",
+                    "path": "LexGenAIDemoFilesStack/read-source-and-build-index-function-CFN/AssetImage/Staging",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.AssetStaging",
+                      "version": "2.103.0"
+                    }
+                  },
+                  "Repository": {
+                    "id": "Repository",
+                    "path": "LexGenAIDemoFilesStack/read-source-and-build-index-function-CFN/AssetImage/Repository",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ecr.RepositoryBase",
+                      "version": "2.103.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ecr_assets.DockerImageAsset",
+                  "version": "2.103.0"
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "LexGenAIDemoFilesStack/read-source-and-build-index-function-CFN/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
+                  "aws:cdk:cloudformation:props": {
+                    "code": {
+                      "imageUri": {
+                        "Fn::Sub": "${AWS::AccountId}.dkr.ecr.${AWS::Region}.${AWS::URLSuffix}/cdk-hnb659fds-container-assets-${AWS::AccountId}-${AWS::Region}:80c1306d31c2f8e744f025573d3bbfc5d7525791e3269094e9a3bf539cd1d13b"
+                      }
+                    },
+                    "functionName": "read-source-and-build-index-fn",
+                    "memorySize": 10240,
+                    "packageType": "Image",
+                    "role": {
+                      "Fn::GetAtt": [
+                        "CfnLambdaGenAIDemoRoleE89AA239",
+                        "Arn"
+                      ]
+                    },
+                    "timeout": 300
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_lambda.CfnFunction",
+                  "version": "2.103.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_lambda.DockerImageFunction",
+              "version": "2.103.0"
+            }
+          },
+          "BucketNotificationsHandler050a0587b7544547bf325f094a3db834": {
+            "id": "BucketNotificationsHandler050a0587b7544547bf325f094a3db834",
+            "path": "LexGenAIDemoFilesStack/BucketNotificationsHandler050a0587b7544547bf325f094a3db834",
+            "children": {
+              "Role": {
+                "id": "Role",
+                "path": "LexGenAIDemoFilesStack/BucketNotificationsHandler050a0587b7544547bf325f094a3db834/Role",
+                "children": {
+                  "ImportRole": {
+                    "id": "ImportRole",
+                    "path": "LexGenAIDemoFilesStack/BucketNotificationsHandler050a0587b7544547bf325f094a3db834/Role/ImportRole",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.Resource",
+                      "version": "2.103.0"
+                    }
+                  },
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "LexGenAIDemoFilesStack/BucketNotificationsHandler050a0587b7544547bf325f094a3db834/Role/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                      "aws:cdk:cloudformation:props": {
+                        "assumeRolePolicyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "sts:AssumeRole",
+                              "Effect": "Allow",
+                              "Principal": {
+                                "Service": "lambda.amazonaws.com"
+                              }
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        },
+                        "managedPolicyArns": [
+                          {
+                            "Fn::Join": [
+                              "",
+                              [
+                                "arn:",
+                                {
+                                  "Ref": "AWS::Partition"
+                                },
+                                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+                              ]
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                      "version": "2.103.0"
+                    }
+                  },
+                  "DefaultPolicy": {
+                    "id": "DefaultPolicy",
+                    "path": "LexGenAIDemoFilesStack/BucketNotificationsHandler050a0587b7544547bf325f094a3db834/Role/DefaultPolicy",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "LexGenAIDemoFilesStack/BucketNotificationsHandler050a0587b7544547bf325f094a3db834/Role/DefaultPolicy/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                          "aws:cdk:cloudformation:props": {
+                            "policyDocument": {
+                              "Statement": [
+                                {
+                                  "Action": "s3:PutBucketNotification",
+                                  "Effect": "Allow",
+                                  "Resource": "*"
+                                }
+                              ],
+                              "Version": "2012-10-17"
+                            },
+                            "policyName": "BucketNotificationsHandler050a0587b7544547bf325f094a3db834RoleDefaultPolicy2CF63D36",
+                            "roles": [
+                              {
+                                "Ref": "BucketNotificationsHandler050a0587b7544547bf325f094a3db834RoleB6FB88EC"
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
+                          "version": "2.103.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.Policy",
+                      "version": "2.103.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.Role",
+                  "version": "2.103.0"
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "LexGenAIDemoFilesStack/BucketNotificationsHandler050a0587b7544547bf325f094a3db834/Resource",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnResource",
+                  "version": "2.103.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "constructs.Construct",
+              "version": "10.3.0"
+            }
+          },
+          "CFN-runtime-fn": {
+            "id": "CFN-runtime-fn",
+            "path": "LexGenAIDemoFilesStack/CFN-runtime-fn",
+            "children": {
+              "AssetImage": {
+                "id": "AssetImage",
+                "path": "LexGenAIDemoFilesStack/CFN-runtime-fn/AssetImage",
+                "children": {
+                  "Staging": {
+                    "id": "Staging",
+                    "path": "LexGenAIDemoFilesStack/CFN-runtime-fn/AssetImage/Staging",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.AssetStaging",
+                      "version": "2.103.0"
+                    }
+                  },
+                  "Repository": {
+                    "id": "Repository",
+                    "path": "LexGenAIDemoFilesStack/CFN-runtime-fn/AssetImage/Repository",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ecr.RepositoryBase",
+                      "version": "2.103.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ecr_assets.DockerImageAsset",
+                  "version": "2.103.0"
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "LexGenAIDemoFilesStack/CFN-runtime-fn/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
+                  "aws:cdk:cloudformation:props": {
+                    "code": {
+                      "imageUri": {
+                        "Fn::Sub": "${AWS::AccountId}.dkr.ecr.${AWS::Region}.${AWS::URLSuffix}/cdk-hnb659fds-container-assets-${AWS::AccountId}-${AWS::Region}:8476acfeaf4dd452b68a1225abece56f012510ba40f2b86c20f1e9b818371ce2"
+                      }
+                    },
+                    "functionName": "lex-codehook-fn",
+                    "memorySize": 10240,
+                    "packageType": "Image",
+                    "role": {
+                      "Fn::GetAtt": [
+                        "CfnLambdaGenAIDemoRoleE89AA239",
+                        "Arn"
+                      ]
+                    },
+                    "timeout": 300
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_lambda.CfnFunction",
+                  "version": "2.103.0"
+                }
+              },
+              "InvokeSvFxGy7DX2gxObGGHkXUOYXcVuKE47n240yswOZ4O3Y=": {
+                "id": "InvokeSvFxGy7DX2gxObGGHkXUOYXcVuKE47n240yswOZ4O3Y=",
+                "path": "LexGenAIDemoFilesStack/CFN-runtime-fn/InvokeSvFxGy7DX2gxObGGHkXUOYXcVuKE47n240yswOZ4O3Y=",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
+                  "aws:cdk:cloudformation:props": {
+                    "action": "lambda:InvokeFunction",
+                    "functionName": {
+                      "Fn::GetAtt": [
+                        "CFNruntimefnA69E19BE",
+                        "Arn"
+                      ]
+                    },
+                    "principal": "lexv2.amazonaws.com"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_lambda.CfnPermission",
+                  "version": "2.103.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_lambda.DockerImageFunction",
+              "version": "2.103.0"
+            }
+          },
+          "LexGenAIDemoCfnBot": {
+            "id": "LexGenAIDemoCfnBot",
+            "path": "LexGenAIDemoFilesStack/LexGenAIDemoCfnBot",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::Lex::Bot",
+              "aws:cdk:cloudformation:props": {
+                "autoBuildBotLocales": true,
+                "botLocales": [
+                  {
+                    "localeId": "en_US",
+                    "nluConfidenceThreshold": 0.4,
+                    "intents": [
+                      {
+                        "name": "placeHolderIntent",
+                        "initialResponseSetting": {
+                          "codeHook": {
+                            "enableCodeHookInvocation": true,
+                            "isActive": true,
+                            "postCodeHookSpecification": {}
+                          }
+                        },
+                        "sampleUtterances": [
+                          {
+                            "utterance": "utterance"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "FallbackIntent",
+                        "fulfillmentCodeHook": {
+                          "enabled": true,
+                          "isActive": true,
+                          "postFulfillmentStatusSpecification": {}
+                        },
+                        "initialResponseSetting": {
+                          "codeHook": {
+                            "enableCodeHookInvocation": true,
+                            "isActive": true,
+                            "postCodeHookSpecification": {}
+                          }
+                        },
+                        "parentIntentSignature": "AMAZON.FallbackIntent"
+                      }
+                    ]
+                  }
+                ],
+                "dataPrivacy": {
+                  "ChildDirected": "false"
+                },
+                "description": "Bot created for blog post: Enhance Amazon Lex with conversational FAQ features using LLMs",
+                "idleSessionTtlInSeconds": 300,
+                "name": "LexGenAIDemoBotCfn",
+                "roleArn": {
+                  "Fn::GetAtt": [
+                    "CfnLexGenAIDemoRole8075A559",
+                    "Arn"
+                  ]
+                },
+                "testBotAliasSettings": {
+                  "botAliasLocaleSettings": [
+                    {
+                      "botAliasLocaleSetting": {
+                        "enabled": true,
+                        "codeHookSpecification": {
+                          "lambdaCodeHook": {
+                            "codeHookInterfaceVersion": "1.0",
+                            "lambdaArn": {
+                              "Fn::GetAtt": [
+                                "CFNruntimefnA69E19BE",
+                                "Arn"
+                              ]
+                            }
+                          }
+                        }
+                      },
+                      "localeId": "en_US"
+                    }
+                  ]
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_lex.CfnBot",
+              "version": "2.103.0"
+            }
+          },
+          "CDKMetadata": {
+            "id": "CDKMetadata",
+            "path": "LexGenAIDemoFilesStack/CDKMetadata",
+            "children": {
+              "Default": {
+                "id": "Default",
+                "path": "LexGenAIDemoFilesStack/CDKMetadata/Default",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnResource",
+                  "version": "2.103.0"
+                }
+              },
+              "Condition": {
+                "id": "Condition",
+                "path": "LexGenAIDemoFilesStack/CDKMetadata/Condition",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnCondition",
+                  "version": "2.103.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "constructs.Construct",
+              "version": "10.3.0"
+            }
+          },
+          "BootstrapVersion": {
+            "id": "BootstrapVersion",
+            "path": "LexGenAIDemoFilesStack/BootstrapVersion",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnParameter",
+              "version": "2.103.0"
+            }
+          },
+          "CheckBootstrapVersion": {
+            "id": "CheckBootstrapVersion",
+            "path": "LexGenAIDemoFilesStack/CheckBootstrapVersion",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnRule",
+              "version": "2.103.0"
+            }
+          }
+        },
+        "constructInfo": {
+          "fqn": "aws-cdk-lib.Stack",
+          "version": "2.103.0"
+        }
+      },
+      "LexGenAIDemoFilesStack-Webcrawler": {
+        "id": "LexGenAIDemoFilesStack-Webcrawler",
+        "path": "LexGenAIDemoFilesStack-Webcrawler",
+        "children": {
+          "Cfn-gen-ai-demo-web-crawler": {
+            "id": "Cfn-gen-ai-demo-web-crawler",
+            "path": "LexGenAIDemoFilesStack-Webcrawler/Cfn-gen-ai-demo-web-crawler",
+            "children": {
+              "ImportCfn-gen-ai-demo-web-crawler": {
+                "id": "ImportCfn-gen-ai-demo-web-crawler",
+                "path": "LexGenAIDemoFilesStack-Webcrawler/Cfn-gen-ai-demo-web-crawler/ImportCfn-gen-ai-demo-web-crawler",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.Resource",
+                  "version": "2.103.0"
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "LexGenAIDemoFilesStack-Webcrawler/Cfn-gen-ai-demo-web-crawler/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                  "aws:cdk:cloudformation:props": {
+                    "assumeRolePolicyDocument": {
+                      "Statement": [
+                        {
+                          "Action": "sts:AssumeRole",
+                          "Effect": "Allow",
+                          "Principal": {
+                            "Service": "lambda.amazonaws.com"
+                          }
+                        }
+                      ],
+                      "Version": "2012-10-17"
+                    },
+                    "managedPolicyArns": [
+                      {
+                        "Fn::Join": [
+                          "",
+                          [
+                            "arn:",
+                            {
+                              "Ref": "AWS::Partition"
+                            },
+                            ":iam::aws:policy/AmazonS3FullAccess"
+                          ]
+                        ]
+                      }
+                    ]
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                  "version": "2.103.0"
+                }
+              },
+              "DefaultPolicy": {
+                "id": "DefaultPolicy",
+                "path": "LexGenAIDemoFilesStack-Webcrawler/Cfn-gen-ai-demo-web-crawler/DefaultPolicy",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "LexGenAIDemoFilesStack-Webcrawler/Cfn-gen-ai-demo-web-crawler/DefaultPolicy/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                      "aws:cdk:cloudformation:props": {
+                        "policyDocument": {
+                          "Statement": [
+                            {
+                              "Action": [
+                                "logs:CreateLogGroup",
+                                "logs:CreateLogStream",
+                                "logs:PutLogEvents"
+                              ],
+                              "Effect": "Allow",
+                              "Resource": "*"
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        },
+                        "policyName": "CfngenaidemowebcrawlerDefaultPolicy441CCDC9",
+                        "roles": [
+                          {
+                            "Ref": "CfngenaidemowebcrawlerEDC12DEB"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
+                      "version": "2.103.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.Policy",
+                  "version": "2.103.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_iam.Role",
+              "version": "2.103.0"
+            }
+          },
+          "web-crawler-docker-image-CFN": {
+            "id": "web-crawler-docker-image-CFN",
+            "path": "LexGenAIDemoFilesStack-Webcrawler/web-crawler-docker-image-CFN",
+            "children": {
+              "AssetImage": {
+                "id": "AssetImage",
+                "path": "LexGenAIDemoFilesStack-Webcrawler/web-crawler-docker-image-CFN/AssetImage",
+                "children": {
+                  "Staging": {
+                    "id": "Staging",
+                    "path": "LexGenAIDemoFilesStack-Webcrawler/web-crawler-docker-image-CFN/AssetImage/Staging",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.AssetStaging",
+                      "version": "2.103.0"
+                    }
+                  },
+                  "Repository": {
+                    "id": "Repository",
+                    "path": "LexGenAIDemoFilesStack-Webcrawler/web-crawler-docker-image-CFN/AssetImage/Repository",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ecr.RepositoryBase",
+                      "version": "2.103.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ecr_assets.DockerImageAsset",
+                  "version": "2.103.0"
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "LexGenAIDemoFilesStack-Webcrawler/web-crawler-docker-image-CFN/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
+                  "aws:cdk:cloudformation:props": {
+                    "code": {
+                      "imageUri": {
+                        "Fn::Sub": "${AWS::AccountId}.dkr.ecr.${AWS::Region}.${AWS::URLSuffix}/cdk-hnb659fds-container-assets-${AWS::AccountId}-${AWS::Region}:e89bd63ec1e3a38b7d8f1d30880a30f3832a98fec9c549513922316215db1d4a"
+                      }
+                    },
+                    "functionName": "WebCrawlerLambda",
+                    "memorySize": 1024,
+                    "packageType": "Image",
+                    "role": {
+                      "Fn::GetAtt": [
+                        "CfngenaidemowebcrawlerEDC12DEB",
+                        "Arn"
+                      ]
+                    },
+                    "timeout": 300
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_lambda.CfnFunction",
+                  "version": "2.103.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_lambda.DockerImageFunction",
+              "version": "2.103.0"
+            }
+          },
+          "CDKMetadata": {
+            "id": "CDKMetadata",
+            "path": "LexGenAIDemoFilesStack-Webcrawler/CDKMetadata",
+            "children": {
+              "Default": {
+                "id": "Default",
+                "path": "LexGenAIDemoFilesStack-Webcrawler/CDKMetadata/Default",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnResource",
+                  "version": "2.103.0"
+                }
+              },
+              "Condition": {
+                "id": "Condition",
+                "path": "LexGenAIDemoFilesStack-Webcrawler/CDKMetadata/Condition",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnCondition",
+                  "version": "2.103.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "constructs.Construct",
+              "version": "10.3.0"
+            }
+          },
+          "BootstrapVersion": {
+            "id": "BootstrapVersion",
+            "path": "LexGenAIDemoFilesStack-Webcrawler/BootstrapVersion",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnParameter",
+              "version": "2.103.0"
+            }
+          },
+          "CheckBootstrapVersion": {
+            "id": "CheckBootstrapVersion",
+            "path": "LexGenAIDemoFilesStack-Webcrawler/CheckBootstrapVersion",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnRule",
+              "version": "2.103.0"
+            }
+          }
+        },
+        "constructInfo": {
+          "fqn": "aws-cdk-lib.Stack",
+          "version": "2.103.0"
+        }
+      },
+      "Tree": {
+        "id": "Tree",
+        "path": "Tree",
+        "constructInfo": {
+          "fqn": "constructs.Construct",
+          "version": "10.3.0"
+        }
+      }
+    },
+    "constructInfo": {
+      "fqn": "aws-cdk-lib.App",
+      "version": "2.103.0"
+    }
+  }
+}

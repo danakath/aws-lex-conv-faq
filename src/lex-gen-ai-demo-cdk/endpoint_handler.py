@@ -1,14 +1,11 @@
 import json
 import boto3
 import time
-from sagemaker.huggingface import get_huggingface_llm_image_uri
-from sagemaker.huggingface import HuggingFaceModel
 
-# get image from huggingface
-llm_image = get_huggingface_llm_image_uri(
-  "huggingface",
-  version="0.8.2"
-)
+
+from sagemaker.jumpstart.model import JumpStartModel
+
+
 
 assume_role_policy_document = json.dumps({
     "Version": "2012-10-17",
@@ -30,6 +27,7 @@ assume_role_policy_document = json.dumps({
 # IMPORTANT: make sure your lambda endpoint name in lambda_app.py is consisitent if you change it here
 SAGEMAKER_IAM_ROLE_NAME = 'Sagemaker-Endpoint-Creation-Role'
 SAGEMAKER_ENDPOINT_NAME = "huggingface-pytorch-sagemaker-endpoint"
+SAGEMAKER_JS_ENDPOINT_NAME = "huggingface-js-sagemaker-endpoint"
 
 # Create role and give sagemaker permissions
 def get_iam_role(role_name=SAGEMAKER_IAM_ROLE_NAME):
@@ -63,32 +61,37 @@ def get_iam_role(role_name=SAGEMAKER_IAM_ROLE_NAME):
 health_check_timeout = 300
 trust_remote_code = True
 
+
+
 # Create sagemaker endpoint, default values are flan t5 xxl in a g5.8xl instance
-def create_endpoint_from_HF_image(hf_model_id, instance_type="ml.g5.8xlarge", endpoint_name=SAGEMAKER_ENDPOINT_NAME, number_of_gpu=1):
+def create_endpoint_from_JS_image(js_model_id,
+                                  instance_type="ml.g5.8xlarge", 
+                                  endpoint_name=SAGEMAKER_JS_ENDPOINT_NAME, 
+                                  number_of_gpu=1):
     sagemaker_client = boto3.client('sagemaker')
 
+    
+
     try: # check if endpoint already existst
-        sagemaker_client.describe_endpoint(EndpointName=SAGEMAKER_ENDPOINT_NAME)
-        print(f"Endpoint with name {SAGEMAKER_ENDPOINT_NAME} found!")
+        sagemaker_client.describe_endpoint(EndpointName=SAGEMAKER_JS_ENDPOINT_NAME)
+        print(f"Endpoint with name {SAGEMAKER_JS_ENDPOINT_NAME} found!")
         return
     
     except:
-        print(f"Creating endpoint with model{hf_model_id} on {instance_type}...")
+        print(f"Creating endpoint with model{js_model_id} on {instance_type}...")
 
-        # create HuggingFaceModel with the image uri
-        llm_model = HuggingFaceModel(
+        llm_model = JumpStartModel(
+            model_id=js_model_id,
             role=get_iam_role(),
-            image_uri=llm_image,
             env={
-                'HF_MODEL_ID': hf_model_id,
                 'SM_NUM_GPUS': json.dumps(number_of_gpu),
-                'HF_MODEL_TRUST_REMOTE_CODE': json.dumps(trust_remote_code)
             }
         )
 
         # Deploy model to an endpoint
         # https://sagemaker.readthedocs.io/en/stable/api/inference/model.html#sagemaker.model.Model.deploy
-        llm = llm_model.deploy(
+
+        predictor = llm_model.deploy(
             endpoint_name=endpoint_name,
             initial_instance_count=1,
             instance_type=instance_type,
