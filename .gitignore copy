@@ -22,7 +22,6 @@ blogs/rag/blog_post.docx
 blogs/rag/blog_post1.htm
 blogs/rag/blog_post1_files/
 blogs/rag/~$og_post1.htm
-cdk.out/*
+src/cdk.out/*
 src/lex-gen-ai-demo-cdk/.env/*
 src/lex-gen-ai-demo-cdk/cdk.out/*
-src/cdk.out/*
