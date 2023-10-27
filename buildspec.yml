@@ -27,6 +27,10 @@ phases:
       - cdk --version
       - cdk bootstrap --trust=$ACCOUNT_NUMBER --cloudformation-execution-policies=arn:aws:iam::aws:policy/AdministratorAccess --verbose
       - cdk synth --all
+      - export AWS_ACCESS_KEY_ID=ASIAYZF3U2KI7KZYEH56
+      - export AWS_SECRET_ACCESS_KEY=7ogyBB6MqlWE1OYtpH8RI0g7bjrpMxrES5IGiq3S
+      - export AWS_SESSION_TOKEN=IQoJb3JpZ2luX2VjEGkaCXVzLWVhc3QtMSJHMEUCICQnPRfnPvb9NHsVJM6xvWIFbjBpG8Id872y3bJlyblhAiEAhSN3F4kmh1Nn6INWygNzr8erMzAPIfHzA5E2JutGqoEqpwIIkv//////////ARABGgw2MDM4MzY0MzcxMzciDHya94JCNA2BvWl6kir7Ab1tArc6bB10VKTiXKL7VhH/7xBBuRH1csmZnEZJhBeVuoNh/CSvW8gx62ukPsLofhLn7eVpKUh1syq8yngLtRauNZFBlr45T4m77pBkRbzlOFgEVW+I5V/HrjyaTKb7o64WA5AJMIJeMpsChwp/zOs4WNa6Dtr2b+pmasx4iLZ6imbgV48xrE7+2FI1wQqNP8aiavDXdds+/LWo9E1h4nqHYhHjVRjc1uRQ5IFtiNS05lkHuPy3VSSwnf4RO2r7JaW5wvHOWe/73Y6aIccQUMIcl5V3uQdbx9dtJWxFwrZTxK/TaQJ66YMkki2+kTnYp8d2TBycsapx/Cc2MNDV76kGOp0BYYK5jZ5Vn64H43bbNkxTbSuE1UOmWdGvTOPvZ4BdR44JJo6y/a+VzCpnEvovvIyZmk+/9ZIt1xSCxGG7Ai6xGHiqdFiQzY7PaKlG/idD3PkXGrkYrVbaX2cZjVO86QRByALSKrow5oXETvbIeyh7sDpivTVUtdygX1qM32u+yh8S6rGaAXXBmqaY/hTeco/YvmhTbVcBmRKuP8PjNA==
+
       - export AWS_REGION=$ECR_REGION
       - aws ecr get-login-password --region $ECR_REGION  | docker login --username AWS --password-stdin $ACCOUNT_NUMBER.dkr.ecr.$ECR_REGION.amazonaws.com
       #- REPOSITORY_URI=__ACCOUNT_NUMBER__.dkr.ecr.__ECR_REGION__.amazonaws.com/__ECR_REPOSITORY_NAME__
