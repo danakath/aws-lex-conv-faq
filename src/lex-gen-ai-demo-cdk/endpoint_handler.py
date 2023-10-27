@@ -80,6 +80,17 @@ def create_endpoint_from_JS_image(js_model_id,
     except:
         print(f"Creating endpoint with model{js_model_id} on {instance_type}...")
 
+        # list all endpoint configurations
+        # https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/sagemaker.html#SageMaker.Client.list_endpoint_configs
+        endpoint_configs = sagemaker_client.list_endpoint_configs()
+        print(endpoint_configs)
+        print(endpoint_configs['EndpointConfigs'])
+        for epc in endpoint_configs['EndpointConfigs']:
+            print(epc['EndpointConfigName'])
+            if epc['EndpointConfigName'] == SAGEMAKER_JS_ENDPOINT_NAME:
+                print(f"Endpoint configuration {SAGEMAKER_JS_ENDPOINT_NAME} found!")
+                sagemaker_client.delete_endpoint_config(EndpointConfigName=SAGEMAKER_JS_ENDPOINT_NAME)
+
         llm_model = JumpStartModel(
             model_id=js_model_id,
             role=get_iam_role(),
