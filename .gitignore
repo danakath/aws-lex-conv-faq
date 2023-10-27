@@ -1,0 +1,26 @@
+__pycache__/
+blogs/rag/api/deps/
+blogs/rag/api/function.zip
+function.zip
+env/
+.ipynb_checkpoints/
+1.py
+RAG_AWS_OPEN_SEARCH_XIN_HUANG_0419.ipynb
+rag.yaml
+rag2.yaml
+blogs/rag/container/
+blogs/rag/docs/
+blogs/rag/faiss_index/
+blogs/rag/sagemaker.readthedocs.io/
+blogs/rag/scripts/
+opensearch.yml
+1.*
+4.yaml
+blogs\opensearch-data-ingestion\blog_post.qmd
+blogs/rag/ML-14328 Blog Post.docx
+blogs/rag/blog_post.docx
+blogs/rag/blog_post1.htm
+blogs/rag/blog_post1_files/
+blogs/rag/~$og_post1.htm
+src/cdk.out/
+
