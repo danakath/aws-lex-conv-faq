@@ -54,6 +54,7 @@ def handler(event, context):
     ### Download index here
     if not os.path.exists(INDEX_WRITE_LOCATION):
         os.mkdir(INDEX_WRITE_LOCATION)
+        
     try:
         s3_client.download_file(INDEX_BUCKET, "docstore.json", INDEX_WRITE_LOCATION + "/docstore.json")
         s3_client.download_file(INDEX_BUCKET, "index_store.json", INDEX_WRITE_LOCATION + "/index_store.json")
