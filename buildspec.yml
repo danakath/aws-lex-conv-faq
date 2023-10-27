@@ -7,9 +7,9 @@
 version: 0.2
 env:
   variables:
-     __ECR_REGION__: "us-east-1"
-     __ACCOUNT_NUMBER_: "603836437137"
-     __ECR_REPOSITORY_NAME__ : "value"
+     ECR_REGION: "us-east-1"
+     ACCOUNT_NUMBER: "603836437137"
+     ECR_REPOSITORY_NAME : "value"
 phases:
   install:
     runtime-versions:
@@ -27,9 +27,9 @@ phases:
       - cdk --version
       - cdk synth --all
       - cdk bootstrap
-      - $(aws ecr get-login-password --region __ECR_REGION__ --no-include-email | docker login \
+      - $(aws ecr get-login-password --region $ECR_REGION  | docker login \
                --username AWS \
-               --password-stdin __ACCOUNT_NUMBER__.dkr.ecr.<region>.amazonaws.com)
+               --password-stdin $ACCOUNT_NUMBER.dkr.ecr.<region>.amazonaws.com)
       #- REPOSITORY_URI=__ACCOUNT_NUMBER__.dkr.ecr.__ECR_REGION__.amazonaws.com/__ECR_REPOSITORY_NAME__
       #- COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       #- IMAGE_TAG=${COMMIT_HASH:=latest}
